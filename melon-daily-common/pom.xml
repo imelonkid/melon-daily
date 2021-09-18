@@ -21,5 +21,15 @@
       <groupId>cn.melonkid</groupId>
       <artifactId>melon-commons-lang</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+    </dependency>
   </dependencies>
 </project>

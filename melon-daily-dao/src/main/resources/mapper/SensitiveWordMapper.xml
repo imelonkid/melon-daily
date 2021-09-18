@@ -4,12 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.melonkid.daily.mapper.SensitiveWordMapper">
   <select id="findByWord" resultType="cn.melonkid.daily.domain.SensitiveWordDomain">
-    SELECT id, word, msg FROM m_sensitive_words where word = #{word}
+    SELECT id, word, msg, conclusion FROM m_sensitive_words where word = #{word}
   </select>
 
   <insert id="insert" parameterType="cn.melonkid.daily.domain.SensitiveWordDomain">
-    insert into m_sensitive_words(id, word, msg)
-    values (#{id}, #{word}, #{msg})
+    insert into m_sensitive_words (word, msg, conclusion)
+    values (#{word}, #{msg}, #{conclusion})
   </insert>
 
 

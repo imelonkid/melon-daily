@@ -2,13 +2,16 @@ package cn.melonkid.daily.service.impl;
 
 import cn.melonkid.commons.lang.parser.JSONUtil;
 import cn.melonkid.daily.domain.SensitiveWordDomain;
+import cn.melonkid.daily.dto.ContentCheckHit;
 import cn.melonkid.daily.dto.ContentCheckRet;
 import cn.melonkid.daily.mapper.SensitiveWordMapper;
 import cn.melonkid.daily.repository.BaiduApiRepository;
 import cn.melonkid.daily.service.ContentCensorService;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 /**
  * ContentCensorService
@@ -39,14 +42,35 @@ public class ContentCensorServiceImpl implements ContentCensorService {
      */
     @Override
     public ContentCheckRet checkContent(String content) {
-        SensitiveWordDomain wordDomain = new SensitiveWordDomain();
-        wordDomain.setId(1);
-        String word = UUID.randomUUID().toString().substring(0, 5);
-        wordDomain.setWord(word);
-        wordDomain.setMsg("这是测试数据:" + word);
-        sensitiveWordMapper.insert(wordDomain);
-        wordDomain = sensitiveWordMapper.findByWord(word);
-        System.out.println(JSONUtil.toJSONString(wordDomain));
-        return null;
+        ContentCheckRet checkRet = baiduApiRepository.checkContent(content);
+        if (checkRet.getConclusion().equals("合规") || CollectionUtils.isEmpty(
+            checkRet.getContentCheckHits())) {
+            return checkRet;
+        }
+
+        List<ContentCheckHit> hits = checkRet.getContentCheckHits();
+        for (ContentCheckHit hit : hits) {
+            List<String> words = hit.getWords();
+            if (CollectionUtils.isEmpty(words)) {
+                // 这次hit无效
+                continue;
+            }
+
+            for (String word : words) {
+                SensitiveWordDomain qwordDomain = sensitiveWordMapper.findByWord(word);
+                if (qwordDomain != null) {
+                    continue;
+                }
+
+                // 将敏感词保存到数据库
+                SensitiveWordDomain wordDomain = new SensitiveWordDomain();
+                wordDomain.setConclusion(hit.getConclusion());
+                wordDomain.setWord(word);
+                wordDomain.setMsg(hit.getMsg());
+                sensitiveWordMapper.insert(wordDomain);
+            }
+        }
+
+        return checkRet;
     }
 }

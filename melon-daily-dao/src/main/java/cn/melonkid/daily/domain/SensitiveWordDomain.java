@@ -1,5 +1,7 @@
 package cn.melonkid.daily.domain;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
  * 敏感词
  *
@@ -13,6 +15,8 @@ public class SensitiveWordDomain {
     private String word;
 
     private String msg;
+
+    private String conclusion;
 
     public int getId() {
         return id;
@@ -38,9 +42,17 @@ public class SensitiveWordDomain {
         this.msg = msg;
     }
 
+    public String getConclusion() {
+        return conclusion;
+    }
+
+    public void setConclusion(String conclusion) {
+        this.conclusion = conclusion;
+    }
+
     @Override
     public String toString() {
-        return "SensitiveWordDomain{" + "id=" + id + ", word='" + word + '\'' + ", msg='" + msg
-            + '\'' + '}';
+        return new ToStringBuilder(this).append("id", id).append("word", word).append("msg", msg)
+            .append("conclusion", conclusion).toString();
     }
 }
