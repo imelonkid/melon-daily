@@ -1,4 +1,4 @@
 ## spring config
 spring:
   profiles:
-    active: dev
+    active: pro

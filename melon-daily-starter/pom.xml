@@ -31,7 +31,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <mainClass>cn.melonkid.melon.daily.MelonDailyApplication</mainClass>
+          <mainClass>cn.melonkid.daily.MelonDailyApplication</mainClass>
         </configuration>
         <executions>
           <execution>

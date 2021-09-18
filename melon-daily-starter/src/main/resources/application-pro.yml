@@ -10,7 +10,7 @@ spring:
 
   datasource:
     driver: org.apache.derby.jdbc.EmbeddedDriver
-    url: jdbc:derby:melonDB
+    url: jdbc:derby:/home/melonkid/workspace/datas/melon-daily.db
     username: melonkid
     password: melonkid
 
