@@ -1,4 +1,4 @@
-PROJECT_PATCH="echo `pwd`"
+PROJECT_PATCH=$(dirname $(pwd))
 PROGRAM_NAME="melon-daily"
 
 jar(){
@@ -9,8 +9,12 @@ shell(){
   scp $PROJECT_PATCH/shell/bootstrap.sh melonkid@49.232.131.132:~/workspace
 }
 
+ngconf(){
+  scp $PROJECT_PATCH/conf/nginx.conf melonkid@49.232.131.132:~/workspace
+}
+
 db(){
-    scp $PROJECT_PATCH/$PROGRAM_NAME.db melonkid@49.232.131.132:~/datas
+    scp -r $PROJECT_PATCH/$PROGRAM_NAME.db melonkid@49.232.131.132:~/workspace/datas
 }
 
 user_exists(){
@@ -28,6 +32,10 @@ case $1 in
 
         shell)
           shell
+        ;;
+
+        ngconf)
+          ngconf
         ;;
 
         db)

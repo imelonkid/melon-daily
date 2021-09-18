@@ -27,7 +27,7 @@ start() {
     echo -e "$PROGRAM_NAME is already running (pid: $pid)"
   else
     echo -e "Starting $PROGRAM_NAME"
-    nohup java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -jar sxstudy.jar > ~/logs/logger.log 2>&1 &
+    nohup java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -jar melon-daily.jar > ~/logs/logger.log 2>&1 &
     status
   fi
   return 0
