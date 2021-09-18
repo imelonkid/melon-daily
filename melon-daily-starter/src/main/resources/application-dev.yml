@@ -1,0 +1,23 @@
+## spring config
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    content-type: text/html
+    mode: HTML5
+    cache: false
+
+  datasource:
+    driver: org.apache.derby.jdbc.EmbeddedDriver
+    url: jdbc:derby:melonDB
+    username: melonkid
+    password: melonkid
+
+## mybatis
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+
+## apis
+onew.ciba.api: https://sentence.iciba.com/index.php?c=dailysentence&m=getdetail&title=
+
