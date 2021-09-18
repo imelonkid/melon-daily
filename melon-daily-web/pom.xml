@@ -16,6 +16,12 @@
       <groupId>cn.melonkid</groupId>
       <artifactId>melon-daily-service</artifactId>
     </dependency>
+
+    <!--Thymeleaf模板依赖-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
   </dependencies>
 
 </project>
